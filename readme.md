@@ -1,5 +1,8 @@
+## demo 集成的 sdk 版本为 imlib-v4 rtc-v5
+
 ## 使用说明
-demo clone 到本地，可直接打开静态资源中的 `index.html` 进行操作
+1. demo clone 到本地，可直接打开静态资源中的 `index.html` 进行操作
+2. demo 仅提供了基础的流程梳理，如您需要更多功能，可[参考音视频会议开发文档](https://docs.rongcloud.cn/v4/5X/views/rtc/meeting/web/guide/quick/web.html)
 
 ## 参数说明
 
