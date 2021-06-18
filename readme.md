@@ -1,4 +1,4 @@
-## demo 集成的 sdk 版本为 imlib-v4 rtc-v5
+## demo 集成的 sdk 版本为 imlib-v4、rtc-v5
 
 ## 使用说明
 1. demo clone 到本地，可直接打开静态资源中的 `index.html` 进行操作
