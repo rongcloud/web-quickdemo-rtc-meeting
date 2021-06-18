@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Web RTC Meeting V5 Quick Demo</title>
+    <script src="./config.js"></script>
+  </head>
+  <body>
+    <div class="rong-container">
+      <h3 class="rong-title"> Web RTC Meeting V5 Quick Demo </h3>
+      <div class="rong-login-box">
+        <div class="im-wrap">
+          <div class="input-wrap">
+            <input class="rong-input" id="appkey" type="text" value="" placeholder="请输入 appkey" autocomplete="off" oninput="inputChangeFn(this)">
+            <span class="arrow vertical-arrow">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" type="button" value="初始化 IM" onclick="initIM(this)">
+            <span class="arrow vertical-arrow">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" type="button" value="设置 IM 监听" onclick="setIMListener(this)">
+            <span class="arrow vertical-arrow">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" id="token" type="text" value="" placeholder="请输入 token" autocomplete="off" oninput="inputChangeFn(this)">
+            <span class="arrow vertical-arrow">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" type="button" value="连接 IM" onclick="connectIM(this)">
+          </div>
+        </div>
+        <div class="boundary-line">
+          <span class="arrow horizontal-arrow left-horizontal-arrow">------------------------</span>
+          <span class="arrow vertical-arrow">--------------------------------------------------------------------</span>
+          <span class="arrow horizontal-arrow right-horizontal-arrow">------------------------></span>
+          <div class="tips">IM 连接成功后才可初始化 RTC</div>
+        </div>
+        <div class="rtc-wrap">
+          <div class="input-wrap">
+            <input class="rong-input" type="button" value="初始化 RTC" onclick="initRTCClient(this)">
+            <span class="arrow vertical-arrow">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" id="roomId" type="text" value="" placeholder="请输入房间号" autocomplete="off" oninput="inputChangeFn(this)">
+            <span class="arrow vertical-arrow leave-repeat-line">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" type="button" value="加入房间" onclick="joinRoom(this)">
+            <span class="arrow vertical-arrow leave-repeat-line">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" id="setRoomListener" type="button" value="设置 Room 监听、订阅远端资源" onclick="initRTCListener(this)">
+            <span class="arrow vertical-arrow leave-repeat-line">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input rong-input-pub" type="button" value="发布摄像头麦克风资源" onclick="publishMicrophoneCamera(this)">
+            <input class="rong-input rong-input-pub" type="button" value="发布屏幕共享资源" onclick="publishScreenShare(this)">
+            <span class="arrow vertical-arrow pubnext leave-repeat-line">--------></span>
+          </div>
+          <div class="input-wrap">
+            <input class="rong-input" type="button" value="离开房间" onclick="leaveRoom(this)">
+          </div>
+        </div>
+        <div class="rejoin-line">
+          <span class="arrow horizontal-arrow left-horizontal-arrow">------------------------</span>
+          <span class="arrow vertical-short-arrow">------------------------------------------------------</span>
+          <span class="arrow horizontal-arrow right-revert-horizontal-arrow"><------------------------</span>
+          <div class="tips">离开房间后，可重新加入房间继续后续流程</div>
+        </div>
+        <div id="rong-video-box"></div>
+      </div>
+    </div>
+    <!-- RongIMLib -->
+    <script src="https://cdn.ronghub.com/RongIMLib-4.3.6.prod.js"></script>
+    <!-- RTCLib v5 -->
+    <script src="https://cdn.ronghub.com/RCRTC-5.0.9.prod.js"></script>
+    <script src="./assets/js/im.js"></script>
+    <script src="./assets/js/rtc.js"></script>
+    <script>
+      const inputChangeFn = (e) => {
+        if (e.value) {
+          e.nextElementSibling.style.color = '#09f';
+        } else {
+          e.nextElementSibling.style.color = '#fff';
+        }
+        if (e.id === 'roomId') {
+          document.querySelector('.rejoin-line').style.color = '#fff';
+        }
+      }
+    </script>
+  </body>
+</html>
