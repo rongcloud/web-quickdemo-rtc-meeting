@@ -1,4 +1,13 @@
-## demo 集成的 SDK 版本为 IMLib v4 版本、RTCLib v5 版本
+## 快速集成 Demo - Meeting 场景
+
+## 版本依赖
+
+```html
+<!-- RongIMLib -->
+<script src="https://cdn.ronghub.com/RongIMLib-4.4.1.prod.js"></script>
+<!-- RTCLib v5 -->
+<script src="https://cdn.ronghub.com/RCRTC-5.1.1.prod.js"></script>
+```
 
 ## 使用说明
 
