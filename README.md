@@ -28,8 +28,7 @@
 
 房间号长度不能超过 64，可包含 `A-Z`、`a-z`、`0-9`、`+`、`=`、`-`、`_`
 
-### 私有云用户
+## 私有云用户特殊配置
 
-1. 初始化 IM 时，需配置 `navigators` 参数，可在 `config.js` 文件中配置 `navi` 值
-2. 初始化 RTC 时，需配置 `mediaServer` 参数，可在 `config.js` 文件中配置 `mediaServer` 值
+私有云用户需要单独配置 `navi` 地址以连接到私有云的 IM 服务，`navi` 配置可通过修改 `config.js` 完成
 
