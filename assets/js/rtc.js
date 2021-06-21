@@ -135,12 +135,13 @@ const joinRoom = async (e) => {
 	const { code, room, tracks } = await rtcClient.joinRTCRoom(roomId);
 
   if (code !== RCRTC.RCRTCCode.SUCCESS) {
-    console.error(`加入房间失败: ${code}`);
+    alert(`加入房间失败: ${code}`);
     return;
   }
 
 	crtRoom = room;
   tracks.length && (remoteTracks = tracks);
+
   e.nextElementSibling.style.color = '#09f';
   document.querySelector('.rejoin-line').style.color = '#fff';
   document.querySelector('#roomId').nextElementSibling.style.color = '#09f';

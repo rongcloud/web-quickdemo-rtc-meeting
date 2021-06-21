@@ -68,6 +68,6 @@ const connectIM = () => {
       document.querySelector('.boundary-line').style.color = '#09f';
 		})
 		.catch((error) => {
-			console.error(error);
+			alert(`连接失败: ${error}`);
 		});
 }
