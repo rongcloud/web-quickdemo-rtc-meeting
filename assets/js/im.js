@@ -15,11 +15,11 @@ const initIM = (e) => {
     return;
   }
 
-  imClient = RongIMLib.init({
-    appkey,
-    navigators: Config.navi ? [Config.navi] : undefined,
+  RongIMLib.RongIMClient.init(appkey, null, {
+    navi: Config.navi || null,
     logLevel: 1
   });
+  imClient = RongIMLib.RongIMClient.getInstance();
   
   e.nextElementSibling.style.color = '#09f';
 };
@@ -34,16 +34,28 @@ const setIMListener = (e) => {
     return;
   }
 
-  imClient.watch({
-    // 监听消息通知
-		message(message) {
-			console.log('receive message =>', message);
-		},
-    // 监听 IM 连接状态变化
-		status(evt) {
-			console.log('connection status change:', evt.status);
-		}
-  });
+  /**
+   * 设置连接状态监听
+   */
+  var params = {
+    onChanged: function (status) {
+      // status 标识当前连接状态
+      console.log('连接状态: ', status)
+    }
+  };
+  RongIMClient.setConnectionStatusListener(params);
+
+  /**
+   * 设置消息监听
+   */
+  var params = {
+    // 接收到的消息
+    onReceived: function (message) {
+      console.info(message);
+    }
+  };
+  RongIMClient.setOnReceiveMessageListener(params);
+
   e.nextElementSibling.style.color = '#09f';
 };
 
@@ -62,12 +74,18 @@ const connectIM = () => {
     return;
   }
 
-  imClient.connect({ token }).then((user) => {
-			console.log('connect success', user.id);
+  RongIMClient.connect(token, {
+    onSuccess: function(userId) {
+      console.log('连接成功, 用户 ID 为: ', userId);
       isConnected = true;
       document.querySelector('.boundary-line').style.color = '#09f';
-		})
-		.catch((error) => {
-			alert(`连接失败: ${error}`);
-		});
+    },
+    onTokenIncorrect: function() {
+      console.log('连接失败, 失败原因: token 无效');
+    },
+    onError: function(errorCode) {
+      console.log('连接失败, 失败原因: ', errorCode);
+      alert(`连接失败: ${errorCode}`);
+    }
+  });
 }
