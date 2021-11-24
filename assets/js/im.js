@@ -1,5 +1,5 @@
-// IM 客户端实例对象
-let imClient;
+// IM 是否被初始化
+let isInitIM = false;
 
 // IM 是否连接成功
 let isConnected = false;
@@ -15,11 +15,13 @@ const initIM = (e) => {
     return;
   }
 
-  imClient = RongIMLib.init({
+  RongIMLib.init({
     appkey,
     navigators: Config.navi ? [Config.navi] : undefined,
     logLevel: 1
   });
+
+  isInitIM = true;
   
   e.nextElementSibling.style.color = '#09f';
 };
@@ -29,21 +31,32 @@ const initIM = (e) => {
  * @param {HTMLElement} e 绑定事件的元素对象
  */
 const setIMListener = (e) => {
-  if (!imClient) {
+  if (!isInitIM) {
     alert('请先初始化 IM');
     return;
   }
 
-  imClient.watch({
-    // 监听消息通知
-		message(message) {
-			console.log('receive message =>', message);
-		},
-    // 监听 IM 连接状态变化
-		status(evt) {
-			console.log('connection status change:', evt.status);
-		}
+  /**
+   * 监听消息通知
+   */
+  const Events = RongIMLib.Events;
+  RongIMLib.addEventListener(Events.MESSAGES, (event) => {
+    console.log('received messages', event.messages);
   });
+
+  /**
+   * 监听 IM 连接状态变化
+   */
+  RongIMLib.addEventListener(Events.CONNECTING, () => {
+    console.log('onConnecting');
+  });
+  RongIMLib.addEventListener(Events.CONNECTED, () => {
+    console.log('onConnected');
+  });
+  RongIMLib.addEventListener(Events.DISCONNECT, () => {
+    console.log('onDisconnect');
+  });
+
   e.nextElementSibling.style.color = '#09f';
 };
 
@@ -51,7 +64,7 @@ const setIMListener = (e) => {
  * 连接 IM
  */
 const connectIM = () => {
-  if (!imClient) {
+  if (!isInitIM) {
     alert('请先初始化 IM');
     return;
   }
@@ -62,8 +75,8 @@ const connectIM = () => {
     return;
   }
 
-  imClient.connect({ token }).then((user) => {
-			console.log('connect success', user.id);
+  RongIMLib.connect(token).then((user) => {
+			console.log('connect success', user.data.userId);
       isConnected = true;
       document.querySelector('.boundary-line').style.color = '#09f';
 		})
