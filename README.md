@@ -4,9 +4,9 @@
 
 ```html
 <!-- RongIMLib -->
-<script src="https://cdn.ronghub.com/RongIMLib-4.4.6.prod.js"></script>
+<script src="https://cdn.ronghub.com/RongIMLib-v4-Adapter-5.7.2.prod.js"></script>
 <!-- RTCLib v5 -->
-<script src="https://cdn.ronghub.com/RCRTC-5.1.7.prod.js"></script>
+<script src="https://cdn.ronghub.com/RCRTC-5.6.latest.js"></script>
 ```
 
 ## 使用说明
