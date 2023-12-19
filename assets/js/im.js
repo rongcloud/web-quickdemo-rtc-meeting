@@ -38,12 +38,26 @@ const setIMListener = (e) => {
    * 设置连接状态监听
    */
   var params = {
-    onChanged: function (status) {
-      // status 标识当前连接状态
-      console.log('连接状态: ', status)
+    onChanged: function (status, code) {
+      // status 标识当前连接状态， code 表示连接断开原因
+      switch (status) {
+        case RongIMLib.RCConnectionStatus.CONNECTED:
+          console.log('连接成功');
+          break;
+        case RongIMLib.RCConnectionStatus.CONNECTING:
+          console.log('正在连接');
+          break;
+        case RongIMLib.RCConnectionStatus.DISCONNECTED:
+          console.log('断开连接, 错误码：' + code);
+          break;
+        case RongIMLib.RCConnectionStatus.SUSPENDED:
+          // SDK 内部会重连
+          console.log('连接断开，内部重连中，错误码：' + code);
+          break;
+      }
     }
-  };
-  RongIMClient.setConnectionStatusListener(params);
+  }
+  RongIMClient.onConnectionStatusChange(params);
 
   /**
    * 设置消息监听
