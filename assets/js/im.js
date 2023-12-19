@@ -53,8 +53,11 @@ const setIMListener = (e) => {
   RongIMLib.addEventListener(Events.CONNECTED, () => {
     console.log('onConnected');
   });
-  RongIMLib.addEventListener(Events.DISCONNECT, () => {
-    console.log('onDisconnect');
+  RongIMLib.addEventListener(Events.DISCONNECT, (code) => {
+    console.log('onDisconnect:', code);
+  });
+  RongIMLib.addEventListener(Events.SUSPEND, (code) => {
+    console.log('onSuspend:', code);
   });
 
   e.nextElementSibling.style.color = '#09f';
@@ -75,12 +78,14 @@ const connectIM = () => {
     return;
   }
 
-  RongIMLib.connect(token).then((user) => {
-			console.log('connect success', user.data.userId);
-      isConnected = true;
-      document.querySelector('.boundary-line').style.color = '#09f';
-		})
-		.catch((error) => {
-			alert(`连接失败: ${error}`);
-		});
+  RongIMLib.connect(token).then((res) => {
+    if (res.code !== RongIMLib.ErrorCode.SUCCESS) {
+      console.error('connect failed:', res.code);
+      return;
+		}
+
+    console.log('connect success:', res.data.userId);
+    isConnected = true;
+    document.querySelector('.boundary-line').style.color = '#09f';
+  });
 }
